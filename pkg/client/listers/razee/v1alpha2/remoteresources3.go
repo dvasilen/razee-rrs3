@@ -26,10 +26,8 @@ import (
 )
 
 // RemoteResourceS3Lister helps list RemoteResourceS3s.
-// All objects returned here must be treated as read-only.
 type RemoteResourceS3Lister interface {
 	// List lists all RemoteResourceS3s in the indexer.
-	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha2.RemoteResourceS3, err error)
 	// RemoteResourceS3s returns an object that can list and get RemoteResourceS3s.
 	RemoteResourceS3s(namespace string) RemoteResourceS3NamespaceLister
@@ -60,13 +58,10 @@ func (s *remoteResourceS3Lister) RemoteResourceS3s(namespace string) RemoteResou
 }
 
 // RemoteResourceS3NamespaceLister helps list and get RemoteResourceS3s.
-// All objects returned here must be treated as read-only.
 type RemoteResourceS3NamespaceLister interface {
 	// List lists all RemoteResourceS3s in the indexer for a given namespace.
-	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha2.RemoteResourceS3, err error)
 	// Get retrieves the RemoteResourceS3 from the indexer for a given namespace and name.
-	// Objects returned here must be treated as read-only.
 	Get(name string) (*v1alpha2.RemoteResourceS3, error)
 	RemoteResourceS3NamespaceListerExpansion
 }

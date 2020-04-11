@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha2 "github.com/dvasilen/razee-rrs3/pkg/apis/razee/v1alpha2"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -41,7 +39,7 @@ var remoteresources3sResource = schema.GroupVersionResource{Group: "deploy.razee
 var remoteresources3sKind = schema.GroupVersionKind{Group: "deploy.razee.io", Version: "v1alpha2", Kind: "RemoteResourceS3"}
 
 // Get takes name of the remoteResourceS3, and returns the corresponding remoteResourceS3 object, and an error if there is any.
-func (c *FakeRemoteResourceS3s) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *FakeRemoteResourceS3s) Get(name string, options v1.GetOptions) (result *v1alpha2.RemoteResourceS3, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(remoteresources3sResource, c.ns, name), &v1alpha2.RemoteResourceS3{})
 
@@ -52,7 +50,7 @@ func (c *FakeRemoteResourceS3s) Get(ctx context.Context, name string, options v1
 }
 
 // List takes label and field selectors, and returns the list of RemoteResourceS3s that match those selectors.
-func (c *FakeRemoteResourceS3s) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.RemoteResourceS3List, err error) {
+func (c *FakeRemoteResourceS3s) List(opts v1.ListOptions) (result *v1alpha2.RemoteResourceS3List, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(remoteresources3sResource, remoteresources3sKind, c.ns, opts), &v1alpha2.RemoteResourceS3List{})
 
@@ -74,14 +72,14 @@ func (c *FakeRemoteResourceS3s) List(ctx context.Context, opts v1.ListOptions) (
 }
 
 // Watch returns a watch.Interface that watches the requested remoteResourceS3s.
-func (c *FakeRemoteResourceS3s) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeRemoteResourceS3s) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(remoteresources3sResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a remoteResourceS3 and creates it.  Returns the server's representation of the remoteResourceS3, and an error, if there is any.
-func (c *FakeRemoteResourceS3s) Create(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.CreateOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *FakeRemoteResourceS3s) Create(remoteResourceS3 *v1alpha2.RemoteResourceS3) (result *v1alpha2.RemoteResourceS3, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(remoteresources3sResource, c.ns, remoteResourceS3), &v1alpha2.RemoteResourceS3{})
 
@@ -92,7 +90,7 @@ func (c *FakeRemoteResourceS3s) Create(ctx context.Context, remoteResourceS3 *v1
 }
 
 // Update takes the representation of a remoteResourceS3 and updates it. Returns the server's representation of the remoteResourceS3, and an error, if there is any.
-func (c *FakeRemoteResourceS3s) Update(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.UpdateOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *FakeRemoteResourceS3s) Update(remoteResourceS3 *v1alpha2.RemoteResourceS3) (result *v1alpha2.RemoteResourceS3, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(remoteresources3sResource, c.ns, remoteResourceS3), &v1alpha2.RemoteResourceS3{})
 
@@ -103,7 +101,7 @@ func (c *FakeRemoteResourceS3s) Update(ctx context.Context, remoteResourceS3 *v1
 }
 
 // Delete takes name of the remoteResourceS3 and deletes it. Returns an error if one occurs.
-func (c *FakeRemoteResourceS3s) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeRemoteResourceS3s) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
 		Invokes(testing.NewDeleteAction(remoteresources3sResource, c.ns, name), &v1alpha2.RemoteResourceS3{})
 
@@ -111,15 +109,15 @@ func (c *FakeRemoteResourceS3s) Delete(ctx context.Context, name string, opts v1
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeRemoteResourceS3s) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(remoteresources3sResource, c.ns, listOpts)
+func (c *FakeRemoteResourceS3s) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(remoteresources3sResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.RemoteResourceS3List{})
 	return err
 }
 
 // Patch applies the patch and returns the patched remoteResourceS3.
-func (c *FakeRemoteResourceS3s) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *FakeRemoteResourceS3s) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(remoteresources3sResource, c.ns, name, pt, data, subresources...), &v1alpha2.RemoteResourceS3{})
 

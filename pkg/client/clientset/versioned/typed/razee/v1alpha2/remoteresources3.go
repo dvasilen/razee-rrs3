@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
 	"time"
 
 	v1alpha2 "github.com/dvasilen/razee-rrs3/pkg/apis/razee/v1alpha2"
@@ -38,14 +37,14 @@ type RemoteResourceS3sGetter interface {
 
 // RemoteResourceS3Interface has methods to work with RemoteResourceS3 resources.
 type RemoteResourceS3Interface interface {
-	Create(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.CreateOptions) (*v1alpha2.RemoteResourceS3, error)
-	Update(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.UpdateOptions) (*v1alpha2.RemoteResourceS3, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha2.RemoteResourceS3, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha2.RemoteResourceS3List, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error)
+	Create(*v1alpha2.RemoteResourceS3) (*v1alpha2.RemoteResourceS3, error)
+	Update(*v1alpha2.RemoteResourceS3) (*v1alpha2.RemoteResourceS3, error)
+	Delete(name string, options *v1.DeleteOptions) error
+	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
+	Get(name string, options v1.GetOptions) (*v1alpha2.RemoteResourceS3, error)
+	List(opts v1.ListOptions) (*v1alpha2.RemoteResourceS3List, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error)
 	RemoteResourceS3Expansion
 }
 
@@ -64,20 +63,20 @@ func newRemoteResourceS3s(c *DeployV1alpha2Client, namespace string) *remoteReso
 }
 
 // Get takes name of the remoteResourceS3, and returns the corresponding remoteResourceS3 object, and an error if there is any.
-func (c *remoteResourceS3s) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *remoteResourceS3s) Get(name string, options v1.GetOptions) (result *v1alpha2.RemoteResourceS3, err error) {
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("remoteresources3s").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of RemoteResourceS3s that match those selectors.
-func (c *remoteResourceS3s) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.RemoteResourceS3List, err error) {
+func (c *remoteResourceS3s) List(opts v1.ListOptions) (result *v1alpha2.RemoteResourceS3List, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -88,13 +87,13 @@ func (c *remoteResourceS3s) List(ctx context.Context, opts v1.ListOptions) (resu
 		Resource("remoteresources3s").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested remoteResourceS3s.
-func (c *remoteResourceS3s) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *remoteResourceS3s) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -105,74 +104,71 @@ func (c *remoteResourceS3s) Watch(ctx context.Context, opts v1.ListOptions) (wat
 		Resource("remoteresources3s").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a remoteResourceS3 and creates it.  Returns the server's representation of the remoteResourceS3, and an error, if there is any.
-func (c *remoteResourceS3s) Create(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.CreateOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *remoteResourceS3s) Create(remoteResourceS3 *v1alpha2.RemoteResourceS3) (result *v1alpha2.RemoteResourceS3, err error) {
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("remoteresources3s").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(remoteResourceS3).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a remoteResourceS3 and updates it. Returns the server's representation of the remoteResourceS3, and an error, if there is any.
-func (c *remoteResourceS3s) Update(ctx context.Context, remoteResourceS3 *v1alpha2.RemoteResourceS3, opts v1.UpdateOptions) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *remoteResourceS3s) Update(remoteResourceS3 *v1alpha2.RemoteResourceS3) (result *v1alpha2.RemoteResourceS3, err error) {
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("remoteresources3s").
 		Name(remoteResourceS3.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(remoteResourceS3).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the remoteResourceS3 and deletes it. Returns an error if one occurs.
-func (c *remoteResourceS3s) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *remoteResourceS3s) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("remoteresources3s").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *remoteResourceS3s) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *remoteResourceS3s) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	var timeout time.Duration
-	if listOpts.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
+	if listOptions.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("remoteresources3s").
-		VersionedParams(&listOpts, scheme.ParameterCodec).
+		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched remoteResourceS3.
-func (c *remoteResourceS3s) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error) {
+func (c *remoteResourceS3s) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.RemoteResourceS3, err error) {
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("remoteresources3s").
-		Name(name).
 		SubResource(subresources...).
-		VersionedParams(&opts, scheme.ParameterCodec).
+		Name(name).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }

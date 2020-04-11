@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
 	time "time"
 
 	razeev1alpha2 "github.com/dvasilen/razee-rrs3/pkg/apis/razee/v1alpha2"
@@ -62,13 +61,13 @@ func NewFilteredRemoteResourceS3Informer(client versioned.Interface, namespace s
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.DeployV1alpha2().RemoteResourceS3s(namespace).List(context.TODO(), options)
+				return client.DeployV1alpha2().RemoteResourceS3s(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.DeployV1alpha2().RemoteResourceS3s(namespace).Watch(context.TODO(), options)
+				return client.DeployV1alpha2().RemoteResourceS3s(namespace).Watch(options)
 			},
 		},
 		&razeev1alpha2.RemoteResourceS3{},
