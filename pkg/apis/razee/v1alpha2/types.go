@@ -60,8 +60,8 @@ type Iam struct {
 
 // +k8s:openapi-gen=true
 type Auth struct {
-	Iam  Iam  `json:"iam,omitempty"`
-	Hmac Hmac `json:"hmac,omitempty"`
+	Iam  *Iam  `json:"iam,omitempty"`
+	Hmac *Hmac `json:"hmac,omitempty"`
 }
 
 // +k8s:openapi-gen=true
