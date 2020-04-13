@@ -53,7 +53,7 @@ func (f *genericInformer) Lister() cache.GenericLister {
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
 	// Group=deploy.razee.io, Version=v1alpha2
-	case v1alpha2.SchemeGroupVersion.WithResource("remoteresources3s"):
+	case v1alpha2.SchemeGroupVersion.WithResource("remoteresourcess3"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Deploy().V1alpha2().RemoteResourceS3s().Informer()}, nil
 
 	}

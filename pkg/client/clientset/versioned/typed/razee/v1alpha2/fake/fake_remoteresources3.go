@@ -34,7 +34,7 @@ type FakeRemoteResourceS3s struct {
 	ns   string
 }
 
-var remoteresources3sResource = schema.GroupVersionResource{Group: "deploy.razee.io", Version: "v1alpha2", Resource: "remoteresources3s"}
+var remoteresources3sResource = schema.GroupVersionResource{Group: "deploy.razee.io", Version: "v1alpha2", Resource: "remoteresourcess3"}
 
 var remoteresources3sKind = schema.GroupVersionKind{Group: "deploy.razee.io", Version: "v1alpha2", Kind: "RemoteResourceS3"}
 

@@ -67,7 +67,7 @@ func (c *remoteResourceS3s) Get(name string, options v1.GetOptions) (result *v1a
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Get().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
 		Do().
@@ -84,7 +84,7 @@ func (c *remoteResourceS3s) List(opts v1.ListOptions) (result *v1alpha2.RemoteRe
 	result = &v1alpha2.RemoteResourceS3List{}
 	err = c.client.Get().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
 		Do().
@@ -101,7 +101,7 @@ func (c *remoteResourceS3s) Watch(opts v1.ListOptions) (watch.Interface, error) 
 	opts.Watch = true
 	return c.client.Get().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
 		Watch()
@@ -112,7 +112,7 @@ func (c *remoteResourceS3s) Create(remoteResourceS3 *v1alpha2.RemoteResourceS3) 
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Post().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		Body(remoteResourceS3).
 		Do().
 		Into(result)
@@ -124,7 +124,7 @@ func (c *remoteResourceS3s) Update(remoteResourceS3 *v1alpha2.RemoteResourceS3) 
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Put().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		Name(remoteResourceS3.Name).
 		Body(remoteResourceS3).
 		Do().
@@ -136,7 +136,7 @@ func (c *remoteResourceS3s) Update(remoteResourceS3 *v1alpha2.RemoteResourceS3) 
 func (c *remoteResourceS3s) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		Name(name).
 		Body(options).
 		Do().
@@ -151,7 +151,7 @@ func (c *remoteResourceS3s) DeleteCollection(options *v1.DeleteOptions, listOpti
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
 		Body(options).
@@ -164,7 +164,7 @@ func (c *remoteResourceS3s) Patch(name string, pt types.PatchType, data []byte, 
 	result = &v1alpha2.RemoteResourceS3{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
-		Resource("remoteresources3s").
+		Resource("remoteresourcess3").
 		SubResource(subresources...).
 		Name(name).
 		Body(data).
